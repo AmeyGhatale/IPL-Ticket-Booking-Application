@@ -5,11 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AddTheaterRequest {
+public class AddStadiumRequest {
 
     private String name;
 
     private String address;
 
-    private Integer noOfScreens;
 }

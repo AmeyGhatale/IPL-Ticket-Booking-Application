@@ -17,17 +17,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "show_seats")
+@Table(name = "match_seats")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShowSeat {
+public class MatchSeat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer showSeatId;
+    private Integer matchSeatId;
 
     private String seatNo;
 
@@ -40,5 +40,5 @@ public class ShowSeat {
 
     @ManyToOne
     @JoinColumn
-    private Show show;
+    private Match match;
 }

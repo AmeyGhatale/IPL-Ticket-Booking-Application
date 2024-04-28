@@ -1,7 +1,6 @@
 package com.acciojob.bookmyshowapplications.Models;
 
-import com.acciojob.bookmyshowapplications.Enums.Genre;
-import com.acciojob.bookmyshowapplications.Enums.Language;
+import com.acciojob.bookmyshowapplications.Enums.Colour;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -14,35 +13,27 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "movies")
+@Table(name = "teams")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class   Movie {
+public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer movieId;
+    private Integer teamId;
 
     @Column(unique = true)
-    private String movieName;
+    private String teamName;
 
-    private double duration;
-
-    @Enumerated(value = EnumType.STRING)
-    private Genre genre;
-
-    private LocalDate releaseDate;
-
-    private double rating;
+    private String captainName;
 
     @Enumerated(value = EnumType.STRING)
-    private Language language;
+    private Colour teamFlagColour;
+
+    private Integer noOfTrophies;
 
 }

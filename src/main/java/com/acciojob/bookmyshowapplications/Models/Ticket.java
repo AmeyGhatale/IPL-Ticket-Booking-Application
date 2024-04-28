@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,15 +28,17 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String ticketId;
 
-    private String movieName;
+    private String team1Name;
+
+    private String team2Name;
 
     private List<String> seatNoList;
 
-    private LocalDate showDate;
+    private LocalDate matchDate;
 
-    private LocalTime showTime;
+    private LocalTime matchTime;
 
-    private String theaterNameAndAddress;
+    private String stadiumNameAndAddress;
 
     private Integer totalAmtPaid;
 
@@ -48,11 +49,11 @@ public class Ticket {
     @Override
     public String toString() {
         return "Ticket_Id = '" + ticketId + '\'' +
-                ", \nMovie Name = '" + movieName + '\'' +
+                ", \nTeam Names = '" + team1Name+" vs "+team2Name + '\'' +
                 ",  \nSeats = " + seatNoList +
-                ",  \nShow Date = " + showDate +
-                ",  \nShow Time = " + showTime +
-                ",  \nTheater Name and Address = '" + theaterNameAndAddress + '\'' +
+                ",  \nMatch Date = " + matchDate +
+                ",  \nMatch Time = " + matchTime +
+                ",  \nStadium Name and Address = '" + stadiumNameAndAddress + '\'' +
                 ",  \nTotal Amount Paid = " + totalAmtPaid ;
 //                ",  Name = " + userInfo.getName() +
 //                ",  Mobile No = "+userInfo.getMobNo();

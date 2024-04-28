@@ -1,16 +1,12 @@
 package com.acciojob.bookmyshowapplications.Service;
 
 import com.acciojob.bookmyshowapplications.Exceptions.SeatUnavailableException;
-import com.acciojob.bookmyshowapplications.Models.Movie;
-import com.acciojob.bookmyshowapplications.Models.Show;
-import com.acciojob.bookmyshowapplications.Models.ShowSeat;
-import com.acciojob.bookmyshowapplications.Models.Theater;
-import com.acciojob.bookmyshowapplications.Models.Ticket;
-import com.acciojob.bookmyshowapplications.Models.UserInfo;
-import com.acciojob.bookmyshowapplications.Repository.MovieRepository;
-import com.acciojob.bookmyshowapplications.Repository.ShowRepository;
-import com.acciojob.bookmyshowapplications.Repository.ShowSeatRepository;
-import com.acciojob.bookmyshowapplications.Repository.TheaterRepository;
+import com.acciojob.bookmyshowapplications.Models.*;
+import com.acciojob.bookmyshowapplications.Models.Match;
+import com.acciojob.bookmyshowapplications.Repository.TeamRepository;
+import com.acciojob.bookmyshowapplications.Repository.MatchRepository;
+import com.acciojob.bookmyshowapplications.Repository.MatchSeatRepository;
+import com.acciojob.bookmyshowapplications.Repository.StadiumRepository;
 import com.acciojob.bookmyshowapplications.Repository.TicketRepository;
 import com.acciojob.bookmyshowapplications.Repository.UserInfoRepository;
 import com.acciojob.bookmyshowapplications.Requests.BookTicketRequest;
@@ -24,16 +20,16 @@ import java.util.List;
 public class TicketService {
 
     @Autowired
-    private MovieRepository movieRepository;
+    private TeamRepository teamRepository;
 
     @Autowired
-    private TheaterRepository theaterRepository;
+    private StadiumRepository stadiumRepository;
 
     @Autowired
-    private ShowRepository showRepository;
+    private MatchRepository matchRepository;
 
     @Autowired
-    private ShowSeatRepository showSeatRepository;
+    private MatchSeatRepository matchSeatRepository;
 
     @Autowired
     private UserInfoRepository userInfoRepository;
@@ -45,29 +41,31 @@ public class TicketService {
 
         //1. Calculate the total cost of the tickets
 
-        Movie movie = movieRepository.findMovieByMovieName(bookTicketRequest.getMovieName());
-        Theater theater = theaterRepository.findById(bookTicketRequest.getTheaterId()).get();
+        Team team1 = teamRepository.findTeamByTeamName(bookTicketRequest.getTeam1Name());
+        Team team2 = teamRepository.findTeamByTeamName(bookTicketRequest.getTeam2Name());
+        Stadium stadium = stadiumRepository.findById(bookTicketRequest.getStadiumId()).get();
 
         //1.1 Find the ShowEntity with this date and Time
-        Show show = showRepository.findShowByShowDateAndShowTimeAndMovieAndTheater(bookTicketRequest.getShowDate(), bookTicketRequest.getShowTime(), movie, theater);
+        Match match = matchRepository.findMatchByMatchDateAndMatchTimeAndTeam1AndTeam2AndStadium(bookTicketRequest.getMatchDate(),
+                bookTicketRequest.getMatchTime(), team1, team2, stadium);
 
 
-        Integer showId = show.getShowId();
-        List<ShowSeat> showSeatList = showSeatRepository.findShowSeats(showId);
+        Integer matchId = match.getMatchId();
+        List<MatchSeat> matchSeatList = matchSeatRepository.findMatchSeats(matchId);
 
         //Calculate the total Amt and if all seats mentioned are available or not
         int totalAmount = 0;
         Boolean areAllSeatsAvailable = Boolean.TRUE;
 
         for(String seatNo:bookTicketRequest.getRequestedSeats()) {
-            for(ShowSeat showSeat:showSeatList) {
-                if(showSeat.getSeatNo().equals(seatNo))
+            for(MatchSeat matchSeat : matchSeatList) {
+                if(matchSeat.getSeatNo().equals(seatNo))
                 {
-                    if(showSeat.getIsAvailable()==Boolean.FALSE){
+                    if(matchSeat.getIsAvailable()==Boolean.FALSE){
                         areAllSeatsAvailable = Boolean.FALSE;
                         break;
                     }
-                    totalAmount = totalAmount+showSeat.getPrice();
+                    totalAmount = totalAmount+ matchSeat.getPrice();
                 }
             }
         }
@@ -81,10 +79,10 @@ public class TicketService {
 //        Ticket ticket = new Ticket();
 //        ticket.getSeatNoList(bookTicketRequest.getRequestedSeats());
         for(String seatNo : bookTicketRequest.getRequestedSeats()) {
-            for(ShowSeat showSeat : showSeatList) {
-                if(showSeat.getSeatNo().equals(seatNo))
+            for(MatchSeat matchSeat : matchSeatList) {
+                if(matchSeat.getSeatNo().equals(seatNo))
                 {
-                    showSeat.setIsAvailable(Boolean.FALSE);
+                    matchSeat.setIsAvailable(Boolean.FALSE);
 //                    ticket.getSeatNoList().add(seatNo);
                 }
             }
@@ -95,10 +93,11 @@ public class TicketService {
         //3. Save the ticketEntity
 
          Ticket ticket = Ticket.builder().userInfo(userInfo)
-                .movieName(bookTicketRequest.getMovieName())
-                .showDate(bookTicketRequest.getShowDate())
-                .theaterNameAndAddress(theater.getName()+" "+theater.getAddress())
-                .showTime(bookTicketRequest.getShowTime())
+                .team1Name(bookTicketRequest.getTeam1Name())
+                 .team2Name(bookTicketRequest.getTeam2Name())
+                .matchDate(bookTicketRequest.getMatchDate())
+                .stadiumNameAndAddress(stadium.getName()+" "+ stadium.getAddress())
+                .matchTime(bookTicketRequest.getMatchTime())
                 .totalAmtPaid(totalAmount)
                  .seatNoList(bookTicketRequest.getRequestedSeats())
                 .build();

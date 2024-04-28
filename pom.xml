@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.acciojob</groupId>
-	<artifactId>book-my-show-applications</artifactId>
+	<artifactId>book-my-match-applications</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>book-my-show-applications</name>
+	<name>book-my-match-applications</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>

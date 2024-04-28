@@ -11,25 +11,25 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
-@RequestMapping("/show")
-public class ShowController {
+@RequestMapping("/match")
+public class MatchController {
 
     @Autowired
     private MatchService matchService;
 
-    @PostMapping("addShow")
+    @PostMapping("/addMatch")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String addShow(@RequestBody AddMatchRequest showRequest) {
+    public String addMatch(@RequestBody AddMatchRequest matchRequest) {
 
-        String result = matchService.addShows(showRequest);
+        String result = matchService.addMatch(matchRequest);
         return result;
     }
 
-    @PostMapping("addShowSeats")
+    @PostMapping("addMatchSeats")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String addShowSeats(@RequestBody AddMatchSeatsRequest showSeatsRequest){
+    public String addMatchSeats(@RequestBody AddMatchSeatsRequest matchSeatsRequest){
 
-        String response = matchService.addShowSeats(showSeatsRequest);
+        String response = matchService.addMatchSeats(matchSeatsRequest);
         return response;
     }
 

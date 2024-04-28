@@ -8,11 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public interface ShowRepository extends JpaRepository<Match,Integer> {
+public interface MatchRepository extends JpaRepository<Match,Integer> {
 
-    public Match findShowByShowDateAndShowTimeAndMovieAndTheater(LocalDate showDate,
-                                                                 LocalTime showTime,
-                                                                 Team team,
+    public Match findMatchByMatchDateAndMatchTimeAndTeam1AndTeam2AndStadium(LocalDate matchDate,
+                                                                 LocalTime matchTime,
+                                                                 Team team1,
+                                                                 Team team2,
                                                                  Stadium stadium);
 
 }

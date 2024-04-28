@@ -3,9 +3,9 @@ package com.acciojob.bookmyshowapplications.Requests;
 import lombok.Data;
 
 @Data
-public class AddShowSeatsRequest {
+public class AddMatchSeatsRequest {
 
-    private Integer showId;
+    private Integer matchId;
     private Integer priceOfClassicSeats;
     private Integer priceOfPremiumSeats;
 

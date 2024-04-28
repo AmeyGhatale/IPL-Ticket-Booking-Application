@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ShowService {
+public class MatchService {
 
     @Autowired
     private MatchRepository matchRepository;
@@ -32,33 +32,32 @@ public class ShowService {
 
 
 
-    public String addShows(AddMatchRequest showRequest) {
+    public String addMatch(AddMatchRequest matchRequest) {
 
-        //Build an object of the Show Entity and save it to the DB
+        Team team1 = teamRepository.findTeam(matchRequest.getTeam1Name());
+        Team team2 = teamRepository.findTeam(matchRequest.getTeam2Name());
 
-        //I need to get the Movie Entity and Theater Entity : create the Show Entity
-
-        Team team = teamRepository.findMovie(showRequest.getMovieName());
-
-        Stadium stadium = stadiumRepository.findById(showRequest.getTheaterId()).get();
+        Stadium stadium = stadiumRepository.findById(matchRequest.getStadiumId()).get();
 
         Match match = Match.builder()
-                .showDate(showRequest.getShowDate())
-                .showTime(showRequest.getShowTime())
-                .team(team)
+                .matchDate(matchRequest.getMatchDate())
+                .matchTime(matchRequest.getMatchTime())
+                .team1(team1)
+                .team2(team2)
                 .stadium(stadium)
                 .build();
 
         match = matchRepository.save(match);
 
-        return "The show has been saved to the DB with showId : "+ match.getShowId();
+        return "Match of "+team1.getTeamName()+" vs "+team2.getTeamName()+" has been fixed on "+match.getMatchDate()
+        +" with matchId : "+ match.getMatchId();
     }
 
 
-    public String addShowSeats(AddMatchSeatsRequest showSeatsRequest) {
+    public String addMatchSeats(AddMatchSeatsRequest matchSeatsRequest) {
 
-        Integer showId = showSeatsRequest.getShowId();
-        Match match = matchRepository.findById(showId).get();
+        Integer matchId = matchSeatsRequest.getMatchId();
+        Match match = matchRepository.findById(matchId).get();
 
         Stadium stadium = match.getStadium();
         List<StadiumSeat> stadiumSeatList = stadium.getStadiumSeatList();
@@ -76,16 +75,16 @@ public class ShowService {
                     .build();
 
             if(stadiumSeat.getSeatType().equals(SeatType.CLASSIC)){
-                matchSeat.setPrice(showSeatsRequest.getPriceOfClassicSeats());
+                matchSeat.setPrice(matchSeatsRequest.getPriceOfClassicSeats());
             }else
-                matchSeat.setPrice(showSeatsRequest.getPriceOfPremiumSeats());
+                matchSeat.setPrice(matchSeatsRequest.getPriceOfPremiumSeats());
 
             matchSeatList.add(matchSeat);
         }
 
         matchSeatRepository.saveAll(matchSeatList);
 
-        return "Show seats have been generated for the given showId";
+        return "Match seats have been generated for the given matchId : "+match.getMatchId();
     }
 
 }

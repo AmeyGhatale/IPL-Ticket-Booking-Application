@@ -12,28 +12,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/movie")
-public class MovieController {
+@RequestMapping("/team")
+public class TeamController {
 
     @Autowired
     private TeamService teamService;
 
-    @PostMapping("/addMovie")
+    @PostMapping("/addTeam")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String addMovie(@RequestBody Team team){
+    public String addTeam(@RequestBody Team team){
 
         String response = teamService.addTeam(team);
         return response;
     }
 
 
-    @PutMapping("/updateMovieAttributes")
+    @PutMapping("/updateTeamAttributes")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String updateMovieAttributes(@RequestBody UpdateTeamRequest movieRequest){
-                //You have made sure that only relevant attributes
-                //are expose to the client
-
-        String result = teamService.updateTeamAttributes(movieRequest);
+    public String updateTeamAttributes(@RequestBody UpdateTeamRequest teamRequest){
+        String result = teamService.updateTeamAttributes(teamRequest);
         return result;
 
     }

@@ -6,11 +6,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
-public class AddShowRequest {
+public class AddMatchRequest {
 
-    private LocalDate showDate;
-    private LocalTime showTime;
-    private String movieName;
-    private Integer theaterId;
+    private LocalDate matchDate;
+    private LocalTime matchTime;
+    private String team1Name;
+    private String team2Name;
+    private Integer stadiumId;
 
 }

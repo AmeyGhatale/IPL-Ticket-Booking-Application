@@ -1,34 +1,34 @@
 package com.acciojob.bookmyshowapplications.Service;
 
 import com.acciojob.bookmyshowapplications.Models.Team;
-import com.acciojob.bookmyshowapplications.Repository.MovieRepository;
-import com.acciojob.bookmyshowapplications.Requests.UpdateMovieRequest;
+import com.acciojob.bookmyshowapplications.Repository.TeamRepository;
+import com.acciojob.bookmyshowapplications.Requests.UpdateTeamRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MovieService {
+public class TeamService {
 
     @Autowired
-    private MovieRepository movieRepository;
+    private TeamRepository teamRepository;
 
-    public String addMovie(Team team){
+    public String addTeam(Team team){
 
-        team = movieRepository.save(team);
-        return "The movie has been saved to the DB with movieId : "+ team.getMovieId();
+        team = teamRepository.save(team);
+        return "The team has been saved to the DB with teamId : "+ team.getTeamId();
     }
 
-    public String updateMovieAttributes(UpdateMovieRequest movieRequest){
+    public String updateTeamAttributes(UpdateTeamRequest teamRequest){
 
-        Team team = movieRepository.findById(movieRequest.getMovieId()).get();
+        Team team = teamRepository.findById(teamRequest.getTeamId()).get();
 
-        double rating = movieRequest.getRating();
-        double duration = movieRequest.getDuration();
+        String captainName = teamRequest.getCaptainName();
+        Integer noOfTrophies = teamRequest.getNoOfTrophies();
 
-        team.setDuration(duration);
-        team.setRating(rating);
+        team.setCaptainName(captainName);
+        team.setNoOfTrophies(noOfTrophies);
 
-        movieRepository.save(team);
+        teamRepository.save(team);
         return "Attributes are modified";
 
 

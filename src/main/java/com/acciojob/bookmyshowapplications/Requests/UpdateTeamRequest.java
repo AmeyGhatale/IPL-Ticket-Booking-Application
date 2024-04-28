@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateMovieRequest {
+public class UpdateTeamRequest {
 
-    private Integer movieId;
-    private double rating;
-    private double duration;
+    private Integer teamId;
+    private Integer noOfTrophies;
+    private String captainName;
 }

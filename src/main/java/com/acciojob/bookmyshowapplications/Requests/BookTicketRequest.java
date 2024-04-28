@@ -9,11 +9,12 @@ import java.util.List;
 @Data
 public class BookTicketRequest {
 
-    private String movieName;
-    private LocalDate showDate;
-    private LocalTime showTime;
+    private String team1Name;
+    private String team2Name;
+    private LocalDate matchDate;
+    private LocalTime matchTime;
     private List<String> requestedSeats;
-    private Integer theaterId;
+    private Integer stadiumId;
     private String mobNo;
 
 }

@@ -7,13 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ShowSeatRepository extends JpaRepository<MatchSeat,Integer> {
+public interface MatchSeatRepository extends JpaRepository<MatchSeat,Integer> {
 
-    public List<MatchSeat> findAllByShow(Match match); //Inbuilt method invoking
+    public List<MatchSeat> findAllByMatch(Match match); //Inbuilt method invoking
 
     //custom JPL Query
-    @Query(nativeQuery = true,value = "select * from show_seats where show_show_id = :showId")
-    public List<MatchSeat> findShowSeats(Integer showId);
+    @Query(nativeQuery = true,value = "select * from match_seats where match_match_id = :matchId")
+    public List<MatchSeat> findMatchSeats(Integer matchId);
 
 
 

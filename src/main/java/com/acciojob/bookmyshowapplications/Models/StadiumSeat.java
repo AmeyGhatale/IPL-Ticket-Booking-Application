@@ -17,17 +17,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "theater_seats")
+@Table(name = "stadium_seats")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TheaterSeat {
+public class StadiumSeat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer theaterSeatId;
+    private Integer stadiumSeatId;
 
     private String seatNo;
 
@@ -36,5 +36,5 @@ public class TheaterSeat {
 
     @JoinColumn
     @ManyToOne
-    private Theater theater;
+    private Stadium stadium;
 }

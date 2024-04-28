@@ -1,14 +1,14 @@
 package com.acciojob.bookmyshowapplications.Enums;
 
-public enum Genre {
+public enum Colour {
 
-    HORROR,
-    ROMANTIC,
-    COMEDY,
-    BIOGRAPHY,
-    DRAMA,
-    ACTION,
-    THRILLER,
-    SCIFI,
-    FICTIONAL
+    YELLOW,
+    RED,
+    GREEN,
+    BLUE,
+    VOILET,
+    INDIGO,
+    PURPLE,
+    ORANGE,
+    PINK
 }

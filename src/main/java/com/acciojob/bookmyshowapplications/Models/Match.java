@@ -10,45 +10,47 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Table(name = "shows")
+@Table(name = "matches")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Show {
+public class Match {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer showId;
+    private Integer matchId;
 
-    private LocalDate showDate; //"YYYY-MM-DD"
+    private LocalDate matchDate; //"YYYY-MM-DD"
 
-    private LocalTime showTime; //"HH:MM:SS"
-
-    @ManyToOne
-    @JoinColumn
-    private Movie movie;
+    private LocalTime matchTime; //"HH:MM:SS"
 
     @ManyToOne
     @JoinColumn
-    private Theater theater;
+    private Team team1;
+
+    @ManyToOne
+    @JoinColumn
+    private Team team2;
+
+    @ManyToOne
+    @JoinColumn
+    private Stadium stadium;
 
     @Override
     public String toString() {
-        return "Show{" +
-                "showId=" + showId +
-                ", showDate=" + showDate +
-                ", showTime=" + showTime +
-                ", movie=" + movie.getMovieName() +
-                ", theater=" + theater.getName() +
+        return "Match{" +
+                "matchId=" + matchId +
+                ", matchDate=" + matchDate +
+                ", matchTime=" + matchTime +
+                ", team=" + team1.getTeamName() +" vs "+ team2.getTeamName()+
+                ", stadium=" + stadium.getName() +
                 '}';
     }
 }

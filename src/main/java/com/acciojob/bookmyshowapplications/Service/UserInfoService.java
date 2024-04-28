@@ -44,13 +44,13 @@ public class UserInfoService implements UserDetailsService {
 
         SimpleMailMessage message = new SimpleMailMessage();
 
-        message.setSubject("Welcome to Book Your Show Application");
+        message.setSubject("Welcome to IPL Ticket Booking Application");
         message.setFrom("springacciojob@gmail.com");
         message.setTo(userInfo.getEmailId());
 
         String body = "Hi "+ userInfo.getName()+"! "+"\n"+
-                "Welcome to Book your show Application !! , Feel free " +
-                "to browse the movies and use Coupon START100 for an instant discount";
+                "Welcome to IPL Ticket Booking Application !! , Feel free " +
+                "to browse the teams and matches and use Coupon START100 for an instant discount";
 
         message.setText(body);
 

@@ -14,35 +14,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TheaterService {
+public class StadiumService {
     @Autowired
     private StadiumRepository stadiumRepository;
 
     @Autowired
     private StadiumSeatRepository stadiumSeatRepository;
 
-    public String addTheater(AddStadiumRequest addStadiumRequest){
+    public String addStadium(AddStadiumRequest stadiumRequest){
 
         Stadium stadium = Stadium.builder()
-                .address(addStadiumRequest.getAddress())
-                .noOfScreens(addStadiumRequest.getNoOfScreens())
-                .name(addStadiumRequest.getName())
+                .address(stadiumRequest.getAddress())
+                .name(stadiumRequest.getName())
                 .build();
 
-        //Save the entity to the DB
 
         stadium = stadiumRepository.save(stadium);
-        return "The theater is with a theaterId : "+ stadium.getTheaterId();
+        return "The stadium is saved with a stadiumId : "+ stadium.getStadiumId();
     }
 
 
-    public String addTheaterSeats(AddStadiumSeatsRequest addStadiumSeatsRequest){
+    public String addStadiumSeats(AddStadiumSeatsRequest stadiumSeatsRequest){
 
-        int noOfClassicSeats = addStadiumSeatsRequest.getNoOfClassicSeats();
-        int noOfPremiumSeats = addStadiumSeatsRequest.getNoOfPremiumSeats();
+        int noOfClassicSeats = stadiumSeatsRequest.getNoOfClassicSeats();
+        int noOfPremiumSeats = stadiumSeatsRequest.getNoOfPremiumSeats();
 
-        Integer theaterId = addStadiumSeatsRequest.getTheaterId();
-        Stadium stadium = stadiumRepository.findById(theaterId).get();
+        Integer stadiumId = stadiumSeatsRequest.getStadiumId();
+        Stadium stadium = stadiumRepository.findById(stadiumId).get();
 
         int classicSeatCounter = 1;
         char ch='A';
@@ -59,7 +57,7 @@ public class TheaterService {
 
             stadiumSeatList.add(stadiumSeat);
             ch++;
-            if(classicSeatCounter%5==0) {
+            if(classicSeatCounter%10==0) {
                 rowNo = rowNo+1;
                 ch = 'A';
             }
@@ -68,7 +66,7 @@ public class TheaterService {
         int premiumSeatCounter = 1;
         ch='A';
 
-        if(classicSeatCounter%5!=1)
+        if(classicSeatCounter%10!=1)
             rowNo = rowNo+1;
 
 
@@ -83,7 +81,7 @@ public class TheaterService {
 
             stadiumSeatList.add(stadiumSeat);
             ch++;
-            if(premiumSeatCounter%5==0) {
+            if(premiumSeatCounter%15==0) {
                 rowNo = rowNo+1;
                 ch = 'A';
             }
@@ -93,9 +91,7 @@ public class TheaterService {
         stadium.setStadiumSeatList(stadiumSeatList);
         stadiumRepository.save(stadium);
 
-        //Theater seats will get automatically saved
-        //bcz of cascading property written in the parent table
-        return "Theater seats have been generated";
+        return "Stadium seats have been generated";
     }
 
 }

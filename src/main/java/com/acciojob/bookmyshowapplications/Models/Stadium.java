@@ -16,24 +16,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "theaters")
+@Table(name = "stadiums")
 @Getter
 @Setter
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Theater {
+public class Stadium {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer theaterId;
+    private Integer stadiumId;
 
     private String name;
 
     private String address;
 
-    private Integer noOfScreens;
-
-    @OneToMany(mappedBy = "theater",cascade = CascadeType.ALL)
-    private List<TheaterSeat> theaterSeatList = new ArrayList<>();
+    @OneToMany(mappedBy = "stadium",cascade = CascadeType.ALL)
+    private List<StadiumSeat> stadiumSeatList = new ArrayList<>();
 }

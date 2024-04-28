@@ -12,29 +12,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/theater")
-public class TheaterController {
+@RequestMapping("/stadium")
+public class StadiumController {
 
     @Autowired
     private StadiumService stadiumService;
 
 
-    @PostMapping("addTheater")
+    @PostMapping("addStadium")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String addTheater(@RequestBody AddStadiumRequest addStadiumRequest) {
+    public String addStadium(@RequestBody AddStadiumRequest addStadiumRequest) {
 
-        String result = stadiumService.addTheater(addStadiumRequest);
+        String result = stadiumService.addStadium(addStadiumRequest);
         return result;
     }
 
-    @PostMapping("addTheaterSeats")
+    @PostMapping("addStadiumSeats")
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    public String addTheaterSeats(@RequestBody AddStadiumSeatsRequest addStadiumSeatsRequest){
+    public String addStadiumSeats(@RequestBody AddStadiumSeatsRequest addStadiumSeatsRequest){
 
-        String result = stadiumService.addTheaterSeats(addStadiumSeatsRequest);
+        String result = stadiumService.addStadiumSeats(addStadiumSeatsRequest);
         return result;
 
     }
 
-    //Add Theater Seats
 }

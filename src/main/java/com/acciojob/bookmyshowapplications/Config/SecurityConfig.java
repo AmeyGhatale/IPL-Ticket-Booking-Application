@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests().requestMatchers("/ticket/**", "/user/getUser/{id}").authenticated()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/movie/**",  "/show/**",  "/theater/**")
+                .authorizeHttpRequests().requestMatchers("/team/**",  "/match/**",  "/stadium/**")
                 .authenticated()
                 .and()
                 .sessionManagement()
